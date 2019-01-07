@@ -1,7 +1,14 @@
 var app = require('express')();
+var cors = require('cors');
+var corsOptions = {
+  origin: 'http://localhost:8080',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+app.use(cors());
 var http = require('http').Server(app);
 //var redis = require('socket.io-redis');
-var io = require('socket.io')(http);
+var io = require('socket.io')(http, {path: '/ws'});
 //io.adapter(redis({ host: 'localhost', port: 6379 }));
 var port = process.env.PORT || 3000;
 
